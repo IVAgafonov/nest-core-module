@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "nest core module",
   "author": "IAgafonov",
-  "private": true,
+  "private": false,
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
