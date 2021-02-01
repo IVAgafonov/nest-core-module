@@ -5,6 +5,10 @@
   "author": "IAgafonov",
   "private": true,
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IVAgafonov/nest-core-module.git"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
