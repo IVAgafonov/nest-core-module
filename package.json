@@ -1,8 +1,8 @@
 {
-  "name": "nest-core-module",
+  "name": "@iagafonov/nest-core-module",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "nest core module",
+  "author": "IAgafonov",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
