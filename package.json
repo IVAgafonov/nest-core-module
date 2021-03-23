@@ -1,6 +1,6 @@
 {
   "name": "@igor-agafonov/nest-core-module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "nest core module",
   "author": "IAgafonov",
   "license": "UNLICENSED",
@@ -57,7 +57,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.5"
   },
-  "types": "./src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "jest": {
     "moduleFileExtensions": [
       "js",
