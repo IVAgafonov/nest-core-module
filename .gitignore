@@ -34,3 +34,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 **/index.ts
+**/index.ts.bak

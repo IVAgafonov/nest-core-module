@@ -1,6 +1,6 @@
 {
   "name": "@igor-agafonov/nest-core-module",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "nest core module",
   "author": "IAgafonov",
   "license": "UNLICENSED",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cti create ./src && nest build",
+    "build": "cti create ./src -i main.ts && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

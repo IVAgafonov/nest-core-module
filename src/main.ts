@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { NestCoreModule } from './nest-core.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LoggerServiceFactory } from "./services/logger";
 
 async function bootstrap() {
-  const app = await NestFactory.create(NestCoreModule);
+  const app = await NestFactory.create(NestCoreModule, {
+    logger: LoggerServiceFactory.getLogger('nest-core-module')
+  });
 
   const options = new DocumentBuilder()
     .setTitle('Nest core module')

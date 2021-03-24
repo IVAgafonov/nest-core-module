@@ -12,6 +12,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./api"), exports);
 __exportStar(require("./services"), exports);
-__exportStar(require("./main"), exports);
 __exportStar(require("./nest-core.module"), exports);
 //# sourceMappingURL=index.js.map
