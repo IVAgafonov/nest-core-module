@@ -1,18 +1,23 @@
 import * as metrics from 'prom-client';
-import { Counter, Summary } from 'prom-client';
+import { Counter, Gauge, Summary } from 'prom-client';
 export declare type GaugeValueCollector = () => unknown;
 export declare type PromLabels = {
     [key: string]: string;
 };
 export declare class PrometheusService {
     static registry: metrics.Registry;
-    static labels: Map<string, string>;
-    static gauges: Map<string, GaugeValueCollector>;
+    static labels: PromLabels;
     static counter(name: string): Counter<string>;
     static timer(name: string, labels?: PromLabels): Timer;
     static label(name: string, value: string): void;
-    static gauge(name: string, value: GaugeValueCollector): void;
+    static gauge(name: string): Gauge<string>;
     static toPrometheus(): Promise<string>;
+}
+export declare class PromGauge {
+    private labels;
+    gauge: Gauge<string>;
+    constructor(name: string, labels?: PromLabels);
+    set(n: number): void;
 }
 export declare class Timer {
     private readonly h;

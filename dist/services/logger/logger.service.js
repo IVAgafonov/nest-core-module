@@ -10,8 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoggerServiceFactory = exports.Log4JsAdapterLogger = void 0;
 const common_1 = require("@nestjs/common");
 const log4js_1 = require("log4js");
+const os = require("os");
 log4js_1.addLayout('json', function () {
     return function (logEvent) {
+        logEvent.context['hostname'] = os.hostname();
         return JSON.stringify(logEvent);
     };
 });

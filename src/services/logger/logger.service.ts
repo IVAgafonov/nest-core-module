@@ -6,9 +6,11 @@ import {
   LoggingEvent,
   Logger as Log4JsLogger,
 } from 'log4js';
+import * as os from 'os';
 
 addLayout('json', function () {
   return function (logEvent: LoggingEvent) {
+    logEvent.context['hostname'] = os.hostname();
     return JSON.stringify(logEvent);
   };
 });
