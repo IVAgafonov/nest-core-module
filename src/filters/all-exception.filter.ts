@@ -8,13 +8,12 @@ export class AllExceptionFilter extends BaseExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
-    // console.log([...Object.keys(exception)]);
-    // console.log(exception.stack);
-    // console.log([exception.message]);
-
-    LoggerServiceFactory.getLogger('nest-core-module').error(
-      exception.message || 'Unknown error',
-      exception.stack || '-',
+    // LoggerServiceFactory.getLogger('web-errors').error(
+    //   exception.message || 'Unknown error',
+    //   exception.stack || '-',
+    // );
+    LoggerServiceFactory.getLogger('web-errors').error(
+      exception
     );
 
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

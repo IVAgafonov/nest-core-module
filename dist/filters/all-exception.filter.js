@@ -14,7 +14,7 @@ let AllExceptionFilter = class AllExceptionFilter extends core_1.BaseExceptionFi
     catch(exception, host) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
-        services_1.LoggerServiceFactory.getLogger('nest-core-module').error(exception.message || 'Unknown error', exception.stack || '-');
+        services_1.LoggerServiceFactory.getLogger('web-errors').error(exception);
         response.status(common_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
             errors: [{ code: 500, message: 'Internal server error' }],
         });

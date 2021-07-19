@@ -11,6 +11,9 @@ import * as os from 'os';
 addLayout('json', function () {
   return function (logEvent: LoggingEvent) {
     logEvent.context['hostname'] = os.hostname();
+    logEvent.data = logEvent.data.map((d) =>
+      d?.stack ? d.stack : d?.toString() ? d.toString() : d,
+    );
     return JSON.stringify(logEvent);
   };
 });

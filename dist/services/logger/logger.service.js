@@ -14,6 +14,7 @@ const os = require("os");
 log4js_1.addLayout('json', function () {
     return function (logEvent) {
         logEvent.context['hostname'] = os.hostname();
+        logEvent.data = logEvent.data.map((d) => (d === null || d === void 0 ? void 0 : d.stack) ? d.stack : (d === null || d === void 0 ? void 0 : d.toString()) ? d.toString() : d);
         return JSON.stringify(logEvent);
     };
 });
