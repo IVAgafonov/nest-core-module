@@ -4,7 +4,7 @@ export declare class Log4JsAdapterLogger implements LoggerService {
     private logger;
     constructor(logger: Log4JsLogger);
     debug(message: string | unknown): void;
-    error(message: string | unknown): void;
+    error(message: string | unknown, trace?: any): void;
     log(message: string | unknown): void;
     verbose(message: string | unknown): void;
     warn(message: string | unknown): void;

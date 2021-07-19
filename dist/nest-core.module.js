@@ -8,18 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestCoreModule = void 0;
 const common_1 = require("@nestjs/common");
-const prometheus_service_1 = require("./services/prometheus/prometheus.service");
-const prometheus_controller_1 = require("./api/controllers/prometheus.controller");
-const logger_service_1 = require("./services/logger/logger.service");
-const test_controller_1 = require("./api/controllers/test.controller");
+const services_1 = require("./services");
+const api_1 = require("./api");
+const services_2 = require("./services");
+const api_2 = require("./api");
+const core_1 = require("@nestjs/core");
+const all_exception_filter_1 = require("./filters/all-exception.filter");
 let NestCoreModule = class NestCoreModule {
 };
 NestCoreModule = __decorate([
     common_1.Global(),
     common_1.Module({
         imports: [],
-        controllers: [prometheus_controller_1.PrometheusController, test_controller_1.TestController],
-        providers: [prometheus_service_1.PrometheusService, logger_service_1.LoggerServiceFactory],
+        controllers: [api_1.PrometheusController, api_2.TestController],
+        providers: [
+            services_1.PrometheusService,
+            services_2.LoggerServiceFactory,
+            { provide: core_1.APP_FILTER, useClass: all_exception_filter_1.AllExceptionFilter },
+        ],
     })
 ], NestCoreModule);
 exports.NestCoreModule = NestCoreModule;

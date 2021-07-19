@@ -1,10 +1,7 @@
 import { Controller, Get, Header, HttpCode } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import {
-  PromCounter,
-  PromMetric,
-} from '../../services/prometheus/prometheus.service';
-import { LoggerServiceFactory } from '../../services/logger/logger.service';
+import { PromCounter, PromMetric } from '../../services';
+import { LoggerServiceFactory } from '../../services';
 
 @Controller('api')
 @ApiTags('test')
@@ -20,6 +17,10 @@ export class TestController {
   logger_test(): unknown {
     this.logger.warn('test.warn', 'context');
     this.logger.log('test.log', 'context');
+
+    // @ts-ignore
+    this.a.b = 0;
+
     return { status: 'OK' };
   }
 }

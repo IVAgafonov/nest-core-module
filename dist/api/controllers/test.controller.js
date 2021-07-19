@@ -12,15 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TestController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const prometheus_service_1 = require("../../services/prometheus/prometheus.service");
-const logger_service_1 = require("../../services/logger/logger.service");
+const services_1 = require("../../services");
+const services_2 = require("../../services");
 let TestController = class TestController {
     constructor() {
-        this.logger = logger_service_1.LoggerServiceFactory.getLogger('test_logger');
+        this.logger = services_2.LoggerServiceFactory.getLogger('test_logger');
     }
     logger_test() {
         this.logger.warn('test.warn', 'context');
         this.logger.log('test.log', 'context');
+        this.a.b = 0;
         return { status: 'OK' };
     }
 };
@@ -29,8 +30,8 @@ __decorate([
     swagger_1.ApiOkResponse({ description: 'OK', type: Object }),
     common_1.Header('Content-type', 'application/json'),
     common_1.HttpCode(200),
-    prometheus_service_1.PromMetric('api', { method: 'logger' }),
-    prometheus_service_1.PromCounter('api_call', 1, { method: 'logger' }),
+    services_1.PromMetric('api', { method: 'logger' }),
+    services_1.PromCounter('api_call', 1, { method: 'logger' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)

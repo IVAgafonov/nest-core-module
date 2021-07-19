@@ -1,13 +1,19 @@
 import { Global, Module } from '@nestjs/common';
-import { PrometheusService } from './services/prometheus/prometheus.service';
-import { PrometheusController } from './api/controllers/prometheus.controller';
-import { LoggerServiceFactory } from './services/logger/logger.service';
-import { TestController } from './api/controllers/test.controller';
+import { PrometheusService } from './services';
+import { PrometheusController } from './api';
+import { LoggerServiceFactory } from './services';
+import { TestController } from './api';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionFilter } from './filters/all-exception.filter';
 
 @Global()
 @Module({
   imports: [],
   controllers: [PrometheusController, TestController],
-  providers: [PrometheusService, LoggerServiceFactory],
+  providers: [
+    PrometheusService,
+    LoggerServiceFactory,
+    { provide: APP_FILTER, useClass: AllExceptionFilter },
+  ],
 })
 export class NestCoreModule {}

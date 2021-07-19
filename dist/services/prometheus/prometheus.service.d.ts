@@ -13,18 +13,18 @@ export declare class PrometheusService {
     static gauge(name: string): Gauge<string>;
     static toPrometheus(): Promise<string>;
 }
-export declare class PromGauge {
-    private labels;
-    gauge: Gauge<string>;
-    constructor(name: string, labels?: PromLabels);
-    set(n: number): void;
-}
 export declare class Timer {
     private readonly h;
     private labels;
     constructor(h: Summary<string>, labels?: PromLabels);
     time<T>(body: () => T | Promise<T>): T | Promise<T>;
     start(): unknown;
+}
+export declare class PromGauge {
+    private labels;
+    gauge: Gauge<string>;
+    constructor(name: string, labels?: PromLabels);
+    set(n: number): void;
 }
 export declare function PromMetric(name: string, labels: PromLabels): MethodDecorator;
 export declare function PromCounter(name: string, value?: number, labels?: PromLabels): MethodDecorator;

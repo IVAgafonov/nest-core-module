@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrometheusController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const prometheus_1 = require("../../services/prometheus");
+const services_1 = require("../../services");
 let PrometheusController = class PrometheusController {
     metrics() {
-        return prometheus_1.PrometheusService.toPrometheus();
+        return services_1.PrometheusService.toPrometheus();
     }
     health() {
         return { status: 'OK' };
@@ -26,8 +26,8 @@ __decorate([
     swagger_1.ApiOkResponse({ description: 'OK', type: String }),
     common_1.Header('Content-type', 'text/plain'),
     common_1.HttpCode(200),
-    prometheus_1.PromMetric('api', { method: 'metric' }),
-    prometheus_1.PromCounter('api_call', 1, { method: 'metric' }),
+    services_1.PromMetric('api', { method: 'metric' }),
+    services_1.PromCounter('api_call', 1, { method: 'metric' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -37,8 +37,8 @@ __decorate([
     swagger_1.ApiOkResponse({ description: 'OK', type: Object }),
     common_1.Header('Content-type', 'application/json'),
     common_1.HttpCode(200),
-    prometheus_1.PromMetric('api', { method: 'health' }),
-    prometheus_1.PromCounter('api_call', 1, { method: 'health' }),
+    services_1.PromMetric('api', { method: 'health' }),
+    services_1.PromCounter('api_call', 1, { method: 'health' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)

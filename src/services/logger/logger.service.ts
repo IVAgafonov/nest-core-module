@@ -21,8 +21,8 @@ export class Log4JsAdapterLogger implements LoggerService {
     this.logger.debug(message);
   }
 
-  error(message: string | unknown): void {
-    this.logger.error(message);
+  error(message: string | unknown, trace: any = null): void {
+    this.logger.error(message, trace);
   }
 
   log(message: string | unknown): void {

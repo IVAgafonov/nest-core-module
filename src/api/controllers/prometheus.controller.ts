@@ -4,7 +4,7 @@ import {
   PromCounter,
   PrometheusService,
   PromMetric,
-} from '../../services/prometheus';
+} from '../../services';
 
 @Controller('api')
 @ApiTags('prometheus')

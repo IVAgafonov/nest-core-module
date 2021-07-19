@@ -24,8 +24,8 @@ class Log4JsAdapterLogger {
     debug(message) {
         this.logger.debug(message);
     }
-    error(message) {
-        this.logger.error(message);
+    error(message, trace = null) {
+        this.logger.error(message, trace);
     }
     log(message) {
         this.logger.info(message);

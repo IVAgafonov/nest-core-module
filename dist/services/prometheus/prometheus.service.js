@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PromCounter = exports.PromMetric = exports.Timer = exports.PromGauge = exports.PrometheusService = void 0;
+exports.PromCounter = exports.PromMetric = exports.PromGauge = exports.Timer = exports.PrometheusService = void 0;
 const metrics = require("prom-client");
 const os = require("os");
 class PrometheusService {
@@ -57,16 +57,6 @@ class PrometheusService {
 exports.PrometheusService = PrometheusService;
 PrometheusService.registry = new metrics.Registry();
 PrometheusService.labels = { hostname: os.hostname() };
-class PromGauge {
-    constructor(name, labels = {}) {
-        this.labels = labels;
-        this.gauge = PrometheusService.gauge(name);
-    }
-    set(n) {
-        this.gauge.set(Object.assign(Object.assign({}, this.labels), PrometheusService.labels), n);
-    }
-}
-exports.PromGauge = PromGauge;
 class Timer {
     constructor(h, labels = {}) {
         this.h = h;
@@ -90,6 +80,16 @@ class Timer {
     }
 }
 exports.Timer = Timer;
+class PromGauge {
+    constructor(name, labels = {}) {
+        this.labels = labels;
+        this.gauge = PrometheusService.gauge(name);
+    }
+    set(n) {
+        this.gauge.set(Object.assign(Object.assign({}, this.labels), PrometheusService.labels), n);
+    }
+}
+exports.PromGauge = PromGauge;
 function PromMetric(name, labels) {
     return (target, key, descriptor) => {
         const method = descriptor.value;

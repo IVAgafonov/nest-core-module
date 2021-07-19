@@ -71,17 +71,6 @@ export class PrometheusService {
   }
 }
 
-export class PromGauge {
-  gauge: Gauge<string>;
-  constructor(name: string, private labels: PromLabels = {}) {
-    this.gauge = PrometheusService.gauge(name);
-  }
-
-  set(n: number): void {
-    this.gauge.set({ ...this.labels, ...PrometheusService.labels }, n);
-  }
-}
-
 export class Timer {
   constructor(
     private readonly h: Summary<string>,
@@ -103,6 +92,17 @@ export class Timer {
 
   start(): unknown {
     return this.h.startTimer(this.labels);
+  }
+}
+
+export class PromGauge {
+  gauge: Gauge<string>;
+  constructor(name: string, private labels: PromLabels = {}) {
+    this.gauge = PrometheusService.gauge(name);
+  }
+
+  set(n: number): void {
+    this.gauge.set({ ...this.labels, ...PrometheusService.labels }, n);
   }
 }
 
