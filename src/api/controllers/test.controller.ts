@@ -18,9 +18,6 @@ export class TestController {
     this.logger.warn('test.warn', 'context');
     this.logger.log('test.log', 'context');
 
-    // @ts-ignore
-    this.a.b = 0;
-
     return { status: 'OK' };
   }
 }

@@ -21,7 +21,6 @@ let TestController = class TestController {
     logger_test() {
         this.logger.warn('test.warn', 'context');
         this.logger.log('test.log', 'context');
-        this.a.b = 0;
         return { status: 'OK' };
     }
 };

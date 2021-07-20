@@ -7,6 +7,8 @@ export declare type PromLabels = {
 export declare class PrometheusService {
     static registry: metrics.Registry;
     static labels: PromLabels;
+    static memoryUsage: boolean;
+    static monitorMemoryUsage(): void;
     static counter(name: string): Counter<string>;
     static timer(name: string, labels?: PromLabels): Timer;
     static label(name: string, value: string): void;

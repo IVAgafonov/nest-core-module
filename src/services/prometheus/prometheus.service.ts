@@ -9,6 +9,25 @@ export type PromLabels = { [key: string]: string };
 export class PrometheusService {
   static registry = new metrics.Registry();
   static labels: PromLabels = { hostname: os.hostname() };
+  static memoryUsage = false;
+
+  public static monitorMemoryUsage(): void {
+    if (PrometheusService.memoryUsage) {
+      return;
+    }
+    PrometheusService.memoryUsage = true;
+    const promGaugeMemoryExternal = new PromGauge('memory_external');
+    const promGaugeMemoryRss = new PromGauge('memory_rss');
+    const promGaugeMemoryHeapTotal = new PromGauge('memory_heap_total');
+    const promGaugeMemoryHeapUsed = new PromGauge('memory_heap_used');
+
+    setInterval(() => {
+      promGaugeMemoryExternal.set(process.memoryUsage().external);
+      promGaugeMemoryRss.set(process.memoryUsage().rss);
+      promGaugeMemoryHeapTotal.set(process.memoryUsage().heapTotal);
+      promGaugeMemoryHeapUsed.set(process.memoryUsage().heapUsed);
+    }, 5000);
+  }
 
   public static counter(name: string): Counter<string> {
     let metric = PrometheusService.registry.getSingleMetric(

@@ -3,7 +3,7 @@ install();
 import { NestFactory } from '@nestjs/core';
 import { NestCoreModule } from './nest-core.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { LoggerServiceFactory, PromGauge } from './services';
+import { LoggerServiceFactory, PrometheusService, PromGauge } from './services';
 
 async function bootstrap() {
   const app = await NestFactory.create(NestCoreModule, {
@@ -15,17 +15,7 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
 
-  const promGaugeMemoryExternal = new PromGauge('memory_external');
-  const promGaugeMemoryRss = new PromGauge('memory_rss');
-  const promGaugeMemoryHeapTotal = new PromGauge('memory_heap_total');
-  const promGaugeMemoryHeapUsed = new PromGauge('memory_heap_used');
-
-  setInterval(() => {
-    promGaugeMemoryExternal.set(process.memoryUsage().external);
-    promGaugeMemoryRss.set(process.memoryUsage().rss);
-    promGaugeMemoryHeapTotal.set(process.memoryUsage().heapTotal);
-    promGaugeMemoryHeapUsed.set(process.memoryUsage().heapUsed);
-  }, 5000);
+  PrometheusService.monitorMemoryUsage();
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);

@@ -4,6 +4,22 @@ exports.PromCounter = exports.PromMetric = exports.PromGauge = exports.Timer = e
 const metrics = require("prom-client");
 const os = require("os");
 class PrometheusService {
+    static monitorMemoryUsage() {
+        if (PrometheusService.memoryUsage) {
+            return;
+        }
+        PrometheusService.memoryUsage = true;
+        const promGaugeMemoryExternal = new PromGauge('memory_external');
+        const promGaugeMemoryRss = new PromGauge('memory_rss');
+        const promGaugeMemoryHeapTotal = new PromGauge('memory_heap_total');
+        const promGaugeMemoryHeapUsed = new PromGauge('memory_heap_used');
+        setInterval(() => {
+            promGaugeMemoryExternal.set(process.memoryUsage().external);
+            promGaugeMemoryRss.set(process.memoryUsage().rss);
+            promGaugeMemoryHeapTotal.set(process.memoryUsage().heapTotal);
+            promGaugeMemoryHeapUsed.set(process.memoryUsage().heapUsed);
+        }, 5000);
+    }
     static counter(name) {
         let metric = PrometheusService.registry.getSingleMetric('counter_' + name);
         if (!metric) {
@@ -57,6 +73,7 @@ class PrometheusService {
 exports.PrometheusService = PrometheusService;
 PrometheusService.registry = new metrics.Registry();
 PrometheusService.labels = { hostname: os.hostname() };
+PrometheusService.memoryUsage = false;
 class Timer {
     constructor(h, labels = {}) {
         this.h = h;
