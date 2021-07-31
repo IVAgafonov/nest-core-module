@@ -1,4 +1,5 @@
+import { MessageResponse } from "../responses/ok.responses";
 export declare class PrometheusController {
     metrics(): Promise<string>;
-    health(): unknown;
+    health(): MessageResponse;
 }

@@ -1,12 +1,18 @@
 import { Controller, Get, Header, HttpCode } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
-  PromCounter,
-  PrometheusService,
-  PromMetric,
-} from '../../services';
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { PromCounter, PrometheusService, PromMetric } from '../../services';
+import { BadRequestResponse, InternalServerErrorResponse } from '../responses';
+import {MessageResponse} from "../responses/ok.responses";
 
 @Controller('api')
+@ApiOkResponse({ type: String })
+@ApiBadRequestResponse({ type: BadRequestResponse })
+@ApiInternalServerErrorResponse({ type: InternalServerErrorResponse })
 @ApiTags('prometheus')
 export class PrometheusController {
   @Get('metrics')
@@ -20,12 +26,14 @@ export class PrometheusController {
   }
 
   @Get('health')
-  @ApiOkResponse({ description: 'OK', type: Object })
+  @ApiOkResponse({ type: MessageResponse })
+  @ApiBadRequestResponse({ type: BadRequestResponse })
+  @ApiInternalServerErrorResponse({ type: InternalServerErrorResponse })
   @Header('Content-type', 'application/json')
   @HttpCode(200)
   @PromMetric('api', { method: 'health' })
   @PromCounter('api_call', 1, { method: 'health' })
-  health(): unknown {
-    return { status: 'OK' };
+  health(): MessageResponse {
+    return new MessageResponse('OK');
   }
 }

@@ -13,7 +13,7 @@ const api_1 = require("./api");
 const services_2 = require("./services");
 const api_2 = require("./api");
 const core_1 = require("@nestjs/core");
-const all_exception_filter_1 = require("./filters/all-exception.filter");
+const filters_1 = require("./filters");
 let NestCoreModule = class NestCoreModule {
 };
 NestCoreModule = __decorate([
@@ -24,7 +24,7 @@ NestCoreModule = __decorate([
         providers: [
             services_1.PrometheusService,
             services_2.LoggerServiceFactory,
-            { provide: core_1.APP_FILTER, useClass: all_exception_filter_1.AllExceptionFilter },
+            { provide: core_1.APP_FILTER, useClass: filters_1.AllExceptionFilter },
         ],
     })
 ], NestCoreModule);

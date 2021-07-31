@@ -14,6 +14,8 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const services_1 = require("../../services");
 const services_2 = require("../../services");
+const responses_1 = require("../responses");
+const ok_responses_1 = require("../responses/ok.responses");
 let TestController = class TestController {
     constructor() {
         this.logger = services_2.LoggerServiceFactory.getLogger('test_logger');
@@ -21,19 +23,21 @@ let TestController = class TestController {
     logger_test() {
         this.logger.warn('test.warn', 'context');
         this.logger.log('test.log', 'context');
-        return { status: 'OK' };
+        return new ok_responses_1.MessageResponse('OK');
     }
 };
 __decorate([
     common_1.Get('logger'),
-    swagger_1.ApiOkResponse({ description: 'OK', type: Object }),
+    swagger_1.ApiOkResponse({ description: 'OK', type: ok_responses_1.MessageResponse }),
+    swagger_1.ApiBadRequestResponse({ type: responses_1.BadRequestResponse }),
+    swagger_1.ApiInternalServerErrorResponse({ type: responses_1.InternalServerErrorResponse }),
     common_1.Header('Content-type', 'application/json'),
     common_1.HttpCode(200),
     services_1.PromMetric('api', { method: 'logger' }),
     services_1.PromCounter('api_call', 1, { method: 'logger' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", ok_responses_1.MessageResponse)
 ], TestController.prototype, "logger_test", null);
 TestController = __decorate([
     common_1.Controller('api'),

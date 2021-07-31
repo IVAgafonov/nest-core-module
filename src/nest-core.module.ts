@@ -4,7 +4,7 @@ import { PrometheusController } from './api';
 import { LoggerServiceFactory } from './services';
 import { TestController } from './api';
 import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionFilter } from './filters/all-exception.filter';
+import { AllExceptionFilter } from './filters';
 
 @Global()
 @Module({
